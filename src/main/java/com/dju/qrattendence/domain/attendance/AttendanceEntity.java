@@ -1,9 +1,6 @@
 package com.dju.qrattendence.domain.attendance;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,22 +11,30 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_qr_student", columnNames = {"qrId", "schoolNumber"})
+        }
+)
 public class AttendanceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String SchoolNumber;
+    private Long qrId;
 
-    private String Name;
+    private String schoolNumber;
+
+    private String name;
 
     private LocalDateTime date;
 
     @Builder
-    public AttendanceEntity(String SchoolNumber, String Name) {
-        this.SchoolNumber = SchoolNumber;
-        this.Name = Name;
+    public AttendanceEntity(Long qrId, String schoolNumber, String name) {
+        this.qrId = qrId;
+        this.schoolNumber = schoolNumber;
+        this.name = name;
         this.date = LocalDateTime.now();
     }
 }

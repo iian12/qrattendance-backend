@@ -21,15 +21,22 @@ public class QrEntity {
 
     private String adminName; // varchar(255)
 
+    private String token;
+
     private LocalDateTime date;
 
     private LocalDateTime expiredAt;
 
     @Builder
-    public QrEntity(String lectureName, String adminName, LocalDateTime expiredAt) {
+    public QrEntity(String lectureName, String adminName, String token, LocalDateTime expiredAt) {
         this.lectureName = lectureName;
         this.adminName = adminName;
+        this.token = token;
         this.date = LocalDateTime.now();
         this.expiredAt = expiredAt;
+    }
+
+    public boolean isExpired() {
+        return expiredAt != null && LocalDateTime.now().isAfter(expiredAt);
     }
 }
