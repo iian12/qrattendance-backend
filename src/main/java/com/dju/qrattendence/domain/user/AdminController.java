@@ -1,35 +1,36 @@
 package com.dju.qrattendence.domain.user;
 
 import com.dju.qrattendence.domain.attendance.AttendanceEntity;
+import com.dju.qrattendence.dto.AttendanceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/admin") // 관리자 관련 기능은 모두 /api/admin으로 시작하게 설정
 @RequiredArgsConstructor
+@RequestMapping("/api/admin")
 public class AdminController {
 
     private final AdminService adminService;
 
-    /**
-     * [관리자 기능] 특정 날짜별 출석 명단 조회
-     * 호출 방법: GET http://localhost:8080/api/admin/attendance?date=2026-01-24
-     */
     @GetMapping("/attendance")
-    public ResponseEntity<List<AttendanceEntity>> getAttendanceListByDate(
-            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public ResponseEntity<List<AttendanceResponse>> getAttendanceList(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    ) {
+        List<AttendanceEntity> entities = adminService.getAllAttendanceByDate(date);
 
-        // 1. 서비스를 통해 해당 날짜의 출석 데이터를 가져옴
-        List<AttendanceEntity> result = adminService.getAllAttendanceByDate(date);
+        List<AttendanceResponse> responseList = entities.stream()
+                .map(AttendanceResponse::new)
+                .collect(Collectors.toList());
 
-        // 2. HTTP 상태 코드 200(OK)과 함께 결과 데이터(JSON) 반환
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(responseList);
     }
-
-    // 이후에 관리자 로그인(@PostMapping("/login")) 등의 코드가 여기에 추가될 수 있습니다.
 }
