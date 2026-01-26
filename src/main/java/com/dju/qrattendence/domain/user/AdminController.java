@@ -4,6 +4,9 @@ import com.dju.qrattendence.domain.attendance.AttendanceEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -15,6 +18,9 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final AuthenticationManager authenticationManager;
+
+
 
     /**
      * [관리자 기능] 특정 날짜별 출석 명단 조회
@@ -31,5 +37,13 @@ public class AdminController {
         return ResponseEntity.ok(result);
     }
 
-    // 이후에 관리자 로그인(@PostMapping("/login")) 등의 코드가 여기에 추가될 수 있습니다.
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest) {
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+        );
+
+        return ResponseEntity.ok().build();
+    }
 }
