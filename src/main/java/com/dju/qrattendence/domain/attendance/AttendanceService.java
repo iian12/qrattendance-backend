@@ -13,9 +13,9 @@ public class AttendanceService {
         this.attendanceRepository = attendanceRepository;
     }
 
-    public AttendanceResponse attendance(AttendanceRequest attendanceRequest) {
+    public AttendanceResponse attendance(AttendanceRequest attendanceRequest, Long qrId) {
         AttendanceEntity attendance = AttendanceEntity.builder()
-                .qrId(attendanceRequest.qrId())
+                .qrId(qrId)
                 .schoolNumber(attendanceRequest.schoolNumber())
                 .name(attendanceRequest.name())
                 .build();
