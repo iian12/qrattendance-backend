@@ -1,7 +1,7 @@
 package com.dju.qrattendence.domain.user;
 
 import com.dju.qrattendence.domain.attendance.AttendanceEntity;
-import com.dju.qrattendence.domain.attendance.AttendanceRepository; // 출석 레포지토리 주입 필요
+import com.dju.qrattendence.domain.attendance.repository.AttendanceRepository; // 출석 레포지토리 주입 필요
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
