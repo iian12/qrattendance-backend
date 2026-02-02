@@ -25,8 +25,7 @@ public class AttendanceController {
         return ResponseEntity.ok(response);
     }
 
-    // TODO: 날짜별, 과목별 출석 조회 서비스 코드 및 컨트롤러 작성 (오미래)
-    @GetMapping("/date/{startDate}")
+    @GetMapping("/date/{date}")
     public ResponseEntity<List<AttendanceResponseListByDate>> getAttendanceByDate(@PathVariable LocalDate date) {
         List<AttendanceResponseListByDate> response = attendanceService.findAttendanceByDate(date);
 
