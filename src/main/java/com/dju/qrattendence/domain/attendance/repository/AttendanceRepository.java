@@ -10,4 +10,7 @@ public interface AttendanceRepository
 
     List<AttendanceEntity> findByDateBetween(LocalDateTime startDay, LocalDateTime endOfDay);
 
+    List<AttendanceEntity> findByLectureName(String lectureName);
+
+
 }

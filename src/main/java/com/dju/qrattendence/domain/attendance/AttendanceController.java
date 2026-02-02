@@ -1,7 +1,12 @@
 package com.dju.qrattendence.domain.attendance;
 
+import com.dju.qrattendence.domain.attendance.repository.AttendanceResponseListByDate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/attendance")
@@ -21,16 +26,17 @@ public class AttendanceController {
     }
 
     // TODO: 날짜별, 과목별 출석 조회 서비스 코드 및 컨트롤러 작성 (오미래)
-    /**@GetMapping("/date")
-    public ResponseEntity<?> getAttendanceByDate() {
-        return ResponseEntity.ok();
-    }
-     */
+    @GetMapping("/date/{startDate}")
+    public ResponseEntity<List<AttendanceResponseListByDate>> getAttendanceByDate(@PathVariable LocalDate date) {
+        List<AttendanceResponseListByDate> response = attendanceService.findAttendanceByDate(date);
 
-
-    /**@GetMapping("/{lectureName}")
-    public ResponseEntity<?> getAttendanceByLectureName() {
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(response);
     }
-     */
+
+    @GetMapping("/{lectureName}")
+    public ResponseEntity<List<AttendanceResponseListByDate>> getAttendanceByLectureName(@PathVariable String lectureName) {
+        List<AttendanceResponseListByDate> response = attendanceService.findAttendanceByLectureName(lectureName);
+        return ResponseEntity.ok(response);
+    }
+
 }
