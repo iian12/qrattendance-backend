@@ -22,4 +22,12 @@ public class AttendanceResponseListByDate {
         this.lectureName = lectureName;
         this.date = date;
     }
+
+    public String getSchoolNumber(String schoolNum, String name, String lectureName, LocalDateTime date) {
+        this.schoolNum = schoolNum;
+        this.name = name;
+        this.lectureName = lectureName;
+        this.date = date;
+        return schoolNum;
+    }
 }
