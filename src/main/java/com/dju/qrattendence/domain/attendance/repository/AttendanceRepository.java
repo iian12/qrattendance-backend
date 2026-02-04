@@ -12,5 +12,5 @@ public interface AttendanceRepository
 
     List<AttendanceEntity> findByLectureName(String lectureName);
 
-
+    List<AttendanceEntity> findBySchoolNumber(String schoolNumber);
 }

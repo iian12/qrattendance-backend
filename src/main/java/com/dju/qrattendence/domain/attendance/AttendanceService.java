@@ -59,4 +59,15 @@ public class AttendanceService {
                 ))
                 .collect(Collectors.toList());
     }
+    public List<AttendanceResponseListByDate> findAttendanceBySchoolNumber(String schoolNumber) {
+        return attendanceRepository.findBySchoolNumber(schoolNumber)
+                .stream()
+                .map(attendance -> new AttendanceResponseListByDate(
+                        attendance.getSchoolNumber(),
+                        attendance.getName(),
+                        attendance.getLectureName(),
+                        attendance.getDate()
+                ))
+                .collect(Collectors.toList());
+    }
 }
