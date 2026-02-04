@@ -28,6 +28,8 @@ public class AttendanceEntity {
 
     private String name;
 
+    private String lectureName;
+
     private LocalDateTime date;
 
     @Builder
@@ -36,5 +38,7 @@ public class AttendanceEntity {
         this.schoolNumber = schoolNumber;
         this.name = name;
         this.date = LocalDateTime.now();
+        this.lectureName = name;
     }
-}
+    }
+

@@ -47,24 +47,39 @@ public class AttendanceServiceTest {
                 .schoolNumber("20251191")
                 .name("Park Min Chan")
                 .build();
-        when(attendanceRepository.findByDateBetween(any(),any())).thenReturn(List.of(entity));
+        when(attendanceRepository.findByDateBetween(any(), any())).thenReturn(List.of(entity));
         List<AttendanceResponseListByDate> result = attendanceService.findAttendanceByDate(date);
         assertEquals(1, result.size());
         assertEquals("Park Min Chan", result.get(0).getName());
         assertEquals("20251191", result.get(0).getDate().toString());
-        verify(attendanceRepository, times(1)).findByDateBetween(any(),any());
+        verify(attendanceRepository, times(1)).findByDateBetween(any(), any());
     }
 
     @Test
     void attendanceFindBySchoolNumberTest() {
-    AttendanceEntity entity = AttendanceEntity.builder()
-            .schoolNumber("20251191")
-            .name("Park Min Chan")
-            .build();
-    when(attendanceRepository.findBySchoolNumber("20251191")).thenReturn(List.of(entity));
-    List<AttendanceResponseListByDate> result = attendanceService.findAttendanceBySchoolNumber("20251191");
-    assertEquals(1, result.size());
-    assertEquals("Park Min Chan", result.get(0).getName());
-    assertEquals("20251191", result.get(0).getSchoolNumber());
-    verify(attendanceRepository, times(1)).findBySchoolNumber("20251191");
+        AttendanceEntity entity = AttendanceEntity.builder()
+                .schoolNumber("20251191")
+                .name("Park Min Chan")
+                .build();
+        when(attendanceRepository.findBySchoolNumber("20251191")).thenReturn(List.of(entity));
+        List<AttendanceResponseListByDate> result = attendanceService.findAttendanceBySchoolNumber("20251191");
+        assertEquals(1, result.size());
+        assertEquals("Park Min Chan", result.get(0).getName());
+        assertEquals("20251191", result.get(0).getSchoolNumber());
+        verify(attendanceRepository, times(1)).findBySchoolNumber("20251191");
+    }
+    @Test
+    void attendanceFindByLectureNameTest() {
+        AttendanceEntity entity = AttendanceEntity.builder()
+                .schoolNumber("20251191")
+                .name("Park Min Chan")
+                .lectureName("C++")
+                .date(LocalDateTime.now())
+                .build();
+        when(attendanceRepository.findByLectureName("C++")).thenReturn(List.of(entity));
+        List<AttendanceResponseListByDate> result = attendanceService.findAttendanceByLectureName("C++");
+        assertEquals(1, result.size());
+        assertEquals("C++", result.get(0).getLectureName());
+        verify(attendanceRepository, times(1)).findByLectureName("C++");
+    }
 }
