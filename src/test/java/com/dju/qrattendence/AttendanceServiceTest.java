@@ -32,27 +32,37 @@ public class AttendanceServiceTest {
     void attendanceSaveTest() {
         AttendanceRequest request = new AttendanceRequest("20251191", "C++", "Park Min Chan");
         Long qrId = 1L;
+
         when(attendanceRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+
         AttendanceResponse response = attendanceService.attendance(request, qrId);
+
         assertTrue(response.success());
         assertEquals("Success", response.message());
-        verify(attendanceRepository, times(1)).save(any());
 
+        verify(attendanceRepository, times(1)).save(any());
     }
 
     @Test
     void attendanceFindByDateTest() {
         LocalDate date = LocalDate.of(2026, 2, 1);
+
         AttendanceEntity entity = AttendanceEntity.builder()
                 .schoolNumber("20251191")
                 .name("Park Min Chan")
                 .build();
-        when(attendanceRepository.findByDateBetween(any(), any())).thenReturn(List.of(entity));
+
+        when(attendanceRepository.findByDateBetween(any(), any()))
+                .thenReturn(List.of(entity));
+
         List<AttendanceResponseListByDate> result = attendanceService.findAttendanceByDate(date);
+
         assertEquals(1, result.size());
         assertEquals("Park Min Chan", result.get(0).getName());
         assertEquals("20251191", result.get(0).getDate().toString());
-        verify(attendanceRepository, times(1)).findByDateBetween(any(), any());
+
+        verify(attendanceRepository, times(1))
+                .findByDateBetween(any(), any());
     }
 
     @Test
@@ -80,10 +90,14 @@ public class AttendanceServiceTest {
                 .lectureName("C++")
                 .date(LocalDateTime.now())
                 .build();
+
         when(attendanceRepository.findByLectureName("C++")).thenReturn(List.of(entity));
+
         List<AttendanceResponseListByDate> result = attendanceService.findAttendanceByLectureName("C++");
+
         assertEquals(1, result.size());
         assertEquals("C++", result.get(0).getLectureName());
+
         verify(attendanceRepository, times(1)).findByLectureName("C++");
     }
 }

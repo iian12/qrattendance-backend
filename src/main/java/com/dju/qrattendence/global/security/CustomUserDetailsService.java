@@ -19,6 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         AdminEntity adminEntity = adminRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
 
-        return new CustomUserDetails(adminEntity.getId(), adminEntity.getUsername(), adminEntity.getPassword());
+        return new CustomUserDetails(adminEntity.getId(), adminEntity.getUsername(), adminEntity.getPassword(), adminEntity.getName());
     }
 }

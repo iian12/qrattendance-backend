@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class QrCreateRequest {
     private String lectureName;
-    private String adminName;
-    private LocalDateTime expiredAt;
+    private LocalDateTime date;
+    private Integer expireTime;
 
-    public QrCreateRequest(String lectureName, String adminName, LocalDateTime expiredAt) {
+    public QrCreateRequest(String lectureName, LocalDateTime date, Integer expireTime) {
         this.lectureName = lectureName;
-        this.adminName = adminName;
-        this.expiredAt = expiredAt;
+        this.date = date;
+        this.expireTime = expireTime;
     }
 }

@@ -22,9 +22,12 @@ public class AdminEntity {
 
     private String password;
 
+    private String name;
+
     @Builder
-    public AdminEntity(String username, String password) {
+    public AdminEntity(String username, String password, String name) {
         this.username = username;
         this.password = password;
+        this.name = name;
     }
 }

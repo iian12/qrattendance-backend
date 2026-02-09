@@ -13,15 +13,21 @@ public class CustomUserDetails implements UserDetails {
     private final Integer adminId;
     private final String username;
     private final String password;
+    private final String name;
 
-    public CustomUserDetails(Integer adminId, String username, String password) {
+    public CustomUserDetails(Integer adminId, String username, String password, String name) {
         this.adminId = adminId;
         this.username = username;
         this.password = password;
+        this.name = name;
     }
 
     public Integer getAdminId() {
         return adminId;
+    }
+
+    public String getAdminName() {
+        return name;
     }
 
     @Override

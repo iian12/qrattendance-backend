@@ -25,18 +25,18 @@ public class QrEntity {
 
     private LocalDateTime date;
 
-    private LocalDateTime expiredAt;
+    private Integer expireTime;
 
     @Builder
-    public QrEntity(String lectureName, String adminName, String token, LocalDateTime expiredAt) {
+    public QrEntity(String lectureName, String adminName, String token, LocalDateTime date, Integer expireTime) {
         this.lectureName = lectureName;
         this.adminName = adminName;
         this.token = token;
-        this.date = LocalDateTime.now();
-        this.expiredAt = expiredAt;
+        this.date = date;
+        this.expireTime = expireTime;
     }
 
     public boolean isExpired() {
-        return expiredAt != null && LocalDateTime.now().isAfter(expiredAt);
+        return LocalDateTime.now().isAfter(date.plusMinutes(expireTime));
     }
 }
