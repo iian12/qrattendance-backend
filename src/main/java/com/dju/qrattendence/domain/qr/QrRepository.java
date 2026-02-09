@@ -8,5 +8,4 @@ import java.util.Optional;
 public interface QrRepository extends JpaRepository<QrEntity, Long> {
     Optional<QrEntity> findByToken(String token);
 
-    boolean existsByLectureNameAndExpiredAtAfter(String lectureName, LocalDateTime date);
 }
