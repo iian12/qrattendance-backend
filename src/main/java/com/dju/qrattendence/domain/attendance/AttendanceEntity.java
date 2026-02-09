@@ -33,12 +33,11 @@ public class AttendanceEntity {
     private LocalDateTime date;
 
     @Builder
-    public AttendanceEntity(Long qrId, String schoolNumber, String name) {
+    public AttendanceEntity(Long qrId, String schoolNumber, String lectureName, String name, LocalDateTime date) {
         this.qrId = qrId;
         this.schoolNumber = schoolNumber;
+        this.lectureName = lectureName;
         this.name = name;
-        this.date = LocalDateTime.now();
-        this.lectureName = name;
+        this.date = date;
     }
-    }
-
+}

@@ -30,7 +30,7 @@ public class AttendanceServiceTest {
 
     @Test
     void attendanceSaveTest() {
-        AttendanceRequest request = new AttendanceRequest("20251191", "Park Min Chan");
+        AttendanceRequest request = new AttendanceRequest("20251191", "C++", "Park Min Chan");
         Long qrId = 1L;
         when(attendanceRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
         AttendanceResponse response = attendanceService.attendance(request, qrId);
@@ -61,11 +61,15 @@ public class AttendanceServiceTest {
                 .schoolNumber("20251191")
                 .name("Park Min Chan")
                 .build();
+
         when(attendanceRepository.findBySchoolNumber("20251191")).thenReturn(List.of(entity));
+
         List<AttendanceResponseListByDate> result = attendanceService.findAttendanceBySchoolNumber("20251191");
+
         assertEquals(1, result.size());
         assertEquals("Park Min Chan", result.get(0).getName());
-        assertEquals("20251191", result.get(0).getSchoolNumber());
+        assertEquals("20251191", result.get(0).getSchoolNum());
+
         verify(attendanceRepository, times(1)).findBySchoolNumber("20251191");
     }
     @Test

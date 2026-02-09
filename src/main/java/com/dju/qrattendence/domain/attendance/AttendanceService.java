@@ -2,6 +2,8 @@ package com.dju.qrattendence.domain.attendance;
 
 import com.dju.qrattendence.domain.attendance.repository.AttendanceRepository;
 import com.dju.qrattendence.domain.attendance.repository.AttendanceResponseListByDate;
+import com.dju.qrattendence.domain.qr.QrEntity;
+import com.dju.qrattendence.domain.qr.QrRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,22 +17,28 @@ import java.util.stream.Collectors;
 public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
+    private final QrRepository qrRepository;
 
-    public AttendanceService(AttendanceRepository attendanceRepository) {
+    public AttendanceService(AttendanceRepository attendanceRepository, QrRepository qrRepository) {
         this.attendanceRepository = attendanceRepository;
+        this.qrRepository = qrRepository;
     }
 
     public AttendanceResponse attendance(AttendanceRequest attendanceRequest, Long qrId) {
+        QrEntity qrEntity = qrRepository.findById(qrId)
+                .orElseThrow(() -> new IllegalArgumentException("QR ID " + qrId + " not found"));
+
         AttendanceEntity attendance = AttendanceEntity.builder()
                 .qrId(qrId)
                 .schoolNumber(attendanceRequest.schoolNumber())
+                .lectureName(attendanceRequest.lectureName())
                 .name(attendanceRequest.name())
+                .date(LocalDateTime.now())
                 .build();
 
         attendanceRepository.save(attendance);
 
         return new AttendanceResponse(true, "Success");
-
     }
 
     public List<AttendanceResponseListByDate> findAttendanceByDate(LocalDate date) {
