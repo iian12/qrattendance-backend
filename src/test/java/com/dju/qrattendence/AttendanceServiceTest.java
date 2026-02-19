@@ -48,7 +48,7 @@ public class AttendanceServiceTest {
         LocalDate date = LocalDate.of(2026, 2, 1);
 
         AttendanceEntity entity = AttendanceEntity.builder()
-                .schoolNumber("20251191")
+                .schoolNum("20251191")
                 .name("Park Min Chan")
                 .build();
 
@@ -68,11 +68,11 @@ public class AttendanceServiceTest {
     @Test
     void attendanceFindBySchoolNumberTest() {
         AttendanceEntity entity = AttendanceEntity.builder()
-                .schoolNumber("20251191")
+                .schoolNum("20251191")
                 .name("Park Min Chan")
                 .build();
 
-        when(attendanceRepository.findBySchoolNumber("20251191")).thenReturn(List.of(entity));
+        when(attendanceRepository.findBySchoolNum("20251191")).thenReturn(List.of(entity));
 
         List<AttendanceResponseListByDate> result = attendanceService.findAttendanceBySchoolNumber("20251191");
 
@@ -80,12 +80,12 @@ public class AttendanceServiceTest {
         assertEquals("Park Min Chan", result.get(0).getName());
         assertEquals("20251191", result.get(0).getSchoolNum());
 
-        verify(attendanceRepository, times(1)).findBySchoolNumber("20251191");
+        verify(attendanceRepository, times(1)).findBySchoolNum("20251191");
     }
     @Test
     void attendanceFindByLectureNameTest() {
         AttendanceEntity entity = AttendanceEntity.builder()
-                .schoolNumber("20251191")
+                .schoolNum("20251191")
                 .name("Park Min Chan")
                 .lectureName("C++")
                 .date(LocalDateTime.now())

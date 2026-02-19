@@ -1,3 +1,3 @@
 package com.dju.qrattendence.domain.attendance;
 
-public record AttendanceRequest(String schoolNumber, String lectureName, String name) { }
+public record AttendanceRequest(String schoolNum, String lectureName, String name) { }

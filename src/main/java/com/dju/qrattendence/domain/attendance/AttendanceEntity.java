@@ -24,7 +24,7 @@ public class AttendanceEntity {
 
     private Long qrId;
 
-    private String schoolNumber;
+    private String schoolNum;
 
     private String name;
 
@@ -33,9 +33,9 @@ public class AttendanceEntity {
     private LocalDateTime date;
 
     @Builder
-    public AttendanceEntity(Long qrId, String schoolNumber, String lectureName, String name, LocalDateTime date) {
+    public AttendanceEntity(Long qrId, String schoolNum, String lectureName, String name, LocalDateTime date) {
         this.qrId = qrId;
-        this.schoolNumber = schoolNumber;
+        this.schoolNum = schoolNum;
         this.lectureName = lectureName;
         this.name = name;
         this.date = date;

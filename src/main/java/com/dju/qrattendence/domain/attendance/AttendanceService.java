@@ -5,7 +5,6 @@ import com.dju.qrattendence.domain.attendance.repository.AttendanceResponseListB
 import com.dju.qrattendence.domain.qr.QrEntity;
 import com.dju.qrattendence.domain.qr.QrRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +29,7 @@ public class AttendanceService {
 
         AttendanceEntity attendance = AttendanceEntity.builder()
                 .qrId(qrId)
-                .schoolNumber(attendanceRequest.schoolNumber())
+                .schoolNum(attendanceRequest.schoolNum())
                 .lectureName(attendanceRequest.lectureName())
                 .name(attendanceRequest.name())
                 .date(LocalDateTime.now())
@@ -48,7 +47,7 @@ public class AttendanceService {
         return attendanceRepository.findByDateBetween(startDay, endOfDay)
                 .stream()
                 .map(attendance -> new AttendanceResponseListByDate(
-                        attendance.getSchoolNumber(),
+                        attendance.getSchoolNum(),
                         attendance.getName(),
                         attendance.getLectureName(),
                         attendance.getDate()
@@ -60,7 +59,7 @@ public class AttendanceService {
         return attendanceRepository.findByLectureName(lectureName)
                 .stream()
                 .map(attendance -> new AttendanceResponseListByDate(
-                        attendance.getSchoolNumber(),
+                        attendance.getSchoolNum(),
                         attendance.getName(),
                         attendance.getLectureName(),
                         attendance.getDate()
@@ -68,10 +67,10 @@ public class AttendanceService {
                 .collect(Collectors.toList());
     }
     public List<AttendanceResponseListByDate> findAttendanceBySchoolNumber(String schoolNumber) {
-        return attendanceRepository.findBySchoolNumber(schoolNumber)
+        return attendanceRepository.findBySchoolNum(schoolNumber)
                 .stream()
                 .map(attendance -> new AttendanceResponseListByDate(
-                        attendance.getSchoolNumber(),
+                        attendance.getSchoolNum(),
                         attendance.getName(),
                         attendance.getLectureName(),
                         attendance.getDate()
